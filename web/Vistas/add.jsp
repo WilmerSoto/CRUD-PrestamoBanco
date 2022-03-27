@@ -13,7 +13,7 @@
     </head>
     <body>
         <div>
-            <h1>Generar nuevo prestamo</h1>
+            <h1>Generar o editar prestamo</h1>
             <form action="Controlador">
                 Valor del prestamo en pesos<br>
                 <input type="text" name="txtValorPrestamo"><br>

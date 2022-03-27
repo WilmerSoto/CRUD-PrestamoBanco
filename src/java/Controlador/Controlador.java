@@ -10,10 +10,6 @@ import ModeloDAO.PrestamoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Math.round;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.time.temporal.TemporalQueries;
-import static java.time.temporal.TemporalQueries.precision;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +24,8 @@ public class Controlador extends HttpServlet {
     String listar="Vistas/listar.jsp";
     String add="Vistas/add.jsp";
     String edit="Vistas/edit.jsp";
+    String indice="index.jsp";
+   
     Prestamo p = new Prestamo();
     PrestamoDAO dao = new PrestamoDAO();
     /**
@@ -70,11 +68,15 @@ public class Controlador extends HttpServlet {
             throws ServletException, IOException {
         String acceso="";
         String action=request.getParameter("accion");
+       
         if (action.equalsIgnoreCase("listar")){
             acceso = listar;
         } else if(action.equalsIgnoreCase("add")){
             acceso = add;
-        } else if (action.equalsIgnoreCase("Generar prestamo")){
+        }else if (action.equalsIgnoreCase("Eliminar tabla")){
+            dao.eliminar();
+            acceso=indice;
+        }else if (action.equalsIgnoreCase("Generar prestamo")){
             String mesesStr = request.getParameter("txtMeses");
             String valorPrestamoStr = request.getParameter("txtValorPrestamo");
             
@@ -84,6 +86,10 @@ public class Controlador extends HttpServlet {
             double valorPrestamo = Double.parseDouble(valorPrestamoStr);
             double interesMeses = Math.pow((1+0.011), meses);
             
+            if (meses>18){
+                meses = 18;
+            }
+            
             double cuotaMensual = (valorPrestamo*(0.011*(interesMeses))) / (interesMeses-1);
             cuotaMensual = cuotaMensual*100;
             cuotaMensual = round(cuotaMensual);
@@ -92,8 +98,8 @@ public class Controlador extends HttpServlet {
             p.setValorCuota(cuotaMensual);
             
             double creditoRestante = valorPrestamo;
-            double abonoMes = 0;
-            double interesMes = 0;
+            double abonoMes;
+            double interesMes;
             for (int i = 1; i <= meses; i++){
                 interesMes = creditoRestante*0.011;
                 interesMes = interesMes*100;
@@ -117,8 +123,7 @@ public class Controlador extends HttpServlet {
                 
                 dao.add(p);
             }
-            acceso = listar;
-            
+            acceso = indice;
         }
         RequestDispatcher vista = request.getRequestDispatcher(acceso);
         vista.forward(request, response);

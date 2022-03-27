@@ -24,7 +24,7 @@ public class Prestamo {
 
     public Prestamo() {
     }
-
+    
     public int getNumMes() {
         return numMes;
     }
