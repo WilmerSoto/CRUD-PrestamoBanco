@@ -36,7 +36,7 @@
                     Valor del prestamo en pesos<br>
                     <input type="number" name="txtValorPrestamo" id="valorPrestamo" oninput="mayorDeCero(this)"><br>
                     Meses del prestamo (maximo 18)<br>
-                    <input type="number" name="txtMeses" id="totalMeses" oninput="checkMayorDe18(this); mayorDeCero(this)">
+                    <input type="number" name="txtMeses" id="totalMeses" oninput="checkMayorDe18(this)">
                     <br>
                     <br>
                     <input type="submit" name="accion" value="Generar prestamo" class="btn btn-success">
@@ -73,7 +73,7 @@
                     %>
                     <tbody>
                         <tr>
-                            <td class="fw-bold"><%= pre.getNumMes()%></td>
+                            <td class="fw-bold" id="numMes"><%= pre.getNumMes()%></td>
                             <td><%= pre.getValorCuota()%></td>
                             <td><%= pre.getValorInteres()%></td>
                             <td><%= pre.getSaldoRestante()%></td>

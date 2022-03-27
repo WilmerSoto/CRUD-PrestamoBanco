@@ -10,29 +10,34 @@ function actualizarTexto() {
     var mesesHTML = document.getElementById("mesesHTML");
     var prestamoHTML = document.getElementById("prestamoHTML");
 
-    if (totalMeses == null || valorPrestamo == null) {
-        mesesHTML.innerHTML = "MESES: 0 meses";
-        prestamoHTML.innerHTML = "VALOR: 0 pesos";
-    } else {
-        mesesHTML.innerHTML = "MESES: " + totalMeses + " meses";
-        prestamoHTML.innerHTML = "VALOR: " + valorPrestamo + " pesos";
-    }
+    mesesHTML.innerHTML = "MESES: " + totalMeses + " meses";
+    prestamoHTML.innerHTML = "VALOR: " + valorPrestamo + " pesos";
 }
 window.addEventListener("load", event => {
-    actualizarTexto();
+    prestamoEnCero();
 });
 function checkMayorDe18(input) {
-    if (input.value > 18) {
-        input.setCustomValidity("Los meses del prestamo no pueden ser mayores a 18");
+    if (input.value > 18 || input.value <= 0) {
+        input.setCustomValidity("Ingresa un numero entre 1 y 18");
     } else {
         input.setCustomValidity("");
     }
 }
-
-function mayorDeCero(input){
-    if (input.value <= 0){
+function prestamoEnCero() {
+    var mesTabla = document.getElementById("numMes").value;
+    
+    if (mesTabla === null) {
+        localStorage.removeItem("meses");
+        localStorage.removeItem("prestamo");
+        actualizarTexto();
+    } else {
+        actualizarTexto();
+    }
+}
+function mayorDeCero(input) {
+    if (input.value <= 0) {
         input.setCustomValidity("No puede ser cero o negativo");
-    } else{
+    } else {
         input.setCustomValidity("");
     }
 }
