@@ -15,6 +15,8 @@ import java.util.ArrayList;
  *
  * @author Wilmer Soto
  */
+
+// DAO que guarda todos los metodos que se ejecutan en el servidor
 public class PrestamoDAO implements CRUD{
     Conexion cn = new Conexion();
     Connection con;
@@ -22,6 +24,8 @@ public class PrestamoDAO implements CRUD{
     ResultSet rs;
     Prestamo p = new Prestamo();
     
+    // Este metodo envia como solicitud sql la String llamada sql que selecciona todos los datos de la base de datos
+    // y los guarda uno a uno en un objeto Prestamo que se añaden a una lista. En el index.jsp se itera sobre esta lista.
     @Override
     public List listar() {
         ArrayList<Prestamo>list = new ArrayList<>();
@@ -43,6 +47,7 @@ public class PrestamoDAO implements CRUD{
         return list;
     }
 
+    // Metodo que recibe el objeto a insertar en la tabla de la base de datos
     @Override
     public boolean add(Prestamo prestamo) {
         String sql = "insert into prestamobanco(numMes, valorCuota, valorInteres, saldoRestante)values('"+prestamo.getNumMes()+"','"+prestamo.getValorCuota()+"','"+prestamo.getValorInteres()+"','"+prestamo.getSaldoRestante()+"')";
@@ -55,7 +60,7 @@ public class PrestamoDAO implements CRUD{
         return false;
         }
         
-    
+    // Metodo que envia una solicitud sql de borrar todos los datos de la base de datos
     @Override
     public boolean eliminar() {
         String sql = "delete from prestamobanco";

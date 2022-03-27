@@ -9,6 +9,9 @@ package Modelo;
  *
  * @author Wilmer Soto
  */
+
+// Clase prestamo que recibe los datos del mes del prestamo que se va a hacer, 
+// en la logica se crea un objeto por cada mes y se manda al DAO
 public class Prestamo {
     int numMes;
     double valorCuota;

@@ -12,6 +12,7 @@ import java.util.List;
  *
  * @author Wilmer Soto
  */
+//Interface que se conecta al ModeloDAO
 public interface CRUD {
     public List listar();
     public boolean add(Prestamo prestamo);

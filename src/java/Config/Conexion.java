@@ -7,6 +7,7 @@ package Config;
 
 import java.sql.*;
 
+//Clase para la conexion del sitio web con la base de datos mysql ya configurada
 public class Conexion {
     Connection con;
     public Conexion(){
