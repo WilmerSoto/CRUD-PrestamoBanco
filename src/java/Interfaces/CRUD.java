@@ -14,9 +14,7 @@ import java.util.List;
  */
 public interface CRUD {
     public List listar();
-    public Prestamo list(int numMes);
     public boolean add(Prestamo prestamo);
-    public boolean edit(Prestamo prestamo);
     public boolean eliminar();
     
 }

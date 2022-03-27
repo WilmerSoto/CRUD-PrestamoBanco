@@ -21,9 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Wilmer Soto
  */
 public class Controlador extends HttpServlet {
-    String listar="Vistas/listar.jsp";
-    String add="Vistas/add.jsp";
-    String edit="Vistas/edit.jsp";
     String indice="index.jsp";
    
     Prestamo p = new Prestamo();
@@ -69,11 +66,7 @@ public class Controlador extends HttpServlet {
         String acceso="";
         String action=request.getParameter("accion");
        
-        if (action.equalsIgnoreCase("listar")){
-            acceso = listar;
-        } else if(action.equalsIgnoreCase("add")){
-            acceso = add;
-        }else if (action.equalsIgnoreCase("Eliminar tabla")){
+        if (action.equalsIgnoreCase("Eliminar tabla")){
             dao.eliminar();
             acceso=indice;
         }else if (action.equalsIgnoreCase("Generar prestamo")){

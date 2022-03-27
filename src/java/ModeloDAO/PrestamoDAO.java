@@ -44,11 +44,6 @@ public class PrestamoDAO implements CRUD{
     }
 
     @Override
-    public Prestamo list(int numMes) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean add(Prestamo prestamo) {
         String sql = "insert into prestamobanco(numMes, valorCuota, valorInteres, saldoRestante)values('"+prestamo.getNumMes()+"','"+prestamo.getValorCuota()+"','"+prestamo.getValorInteres()+"','"+prestamo.getSaldoRestante()+"')";
         try {
@@ -61,12 +56,6 @@ public class PrestamoDAO implements CRUD{
         }
         
     
-
-    @Override
-    public boolean edit(Prestamo prestamo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public boolean eliminar() {
         String sql = "delete from prestamobanco";
