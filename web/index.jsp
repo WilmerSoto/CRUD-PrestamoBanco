@@ -4,9 +4,9 @@
     Author     : Wilmer Soto
 --%>
 
+<%@page import="Modelo.Persona"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
-<%@page import="Modelo.Prestamo"%>
 <%@page import="ModeloDAO.PrestamoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,20 +29,7 @@
     </head>
     <body>
         <script src="./js/script.js"></script>
-        <div class="container card">
-            <div class="card-body">
-                <h1 class="text-center card-header bg-primary text-white fw-bold">Generar o editar prestamo</h1>
-                <form action="Controlador" onsubmit="actualizarStorage()" class="form-control">
-                    Valor del prestamo en pesos<br>
-                    <input type="number" name="txtValorPrestamo" id="valorPrestamo" oninput="mayorDeCero(this)"><br>
-                    Meses del prestamo (maximo 18)<br>
-                    <input type="number" name="txtMeses" id="totalMeses" oninput="checkMayorDe18(this)">
-                    <br>
-                    <br>
-                    <input type="submit" name="accion" value="Generar prestamo" class="btn btn-success">
-                </form>
-            </div>
-        </div>
+        <a href="Controlador?accion=add">Agregar persona</a>
         <div class="container card mt-3 p-4">
             <div class="card-header text-center bg-primary text-white">
                 <h1 class="fw-bold">Plan de pagos del prestamo</h1>
@@ -57,26 +44,31 @@
                     </div>
                     <thead class="table-dark">
                         <tr>
-                            <th>Numero mes</th>
-                            <th>Valor a pagar</th>
-                            <th>Interes del mes</th>
-                            <th>Saldo restante</th>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Valor prestamo</th>
+                            <th>Meses del prestamo</th>
                         </tr>
                     </thead>
                     <%
                         PrestamoDAO dao = new PrestamoDAO();
-                        List<Prestamo> list = dao.listar();
-                        Iterator<Prestamo> iter = list.iterator();
-                        Prestamo pre = null;
+                        List<Persona> list = dao.listar();
+                        Iterator<Persona> iter = list.iterator();
+                        Persona pre = null;
                         while (iter.hasNext()) {
                             pre = iter.next();
                     %>
                     <tbody>
                         <tr>
-                            <td class="fw-bold" id="numMes"><%= pre.getNumMes()%></td>
-                            <td><%= pre.getValorCuota()%></td>
-                            <td><%= pre.getValorInteres()%></td>
-                            <td><%= pre.getSaldoRestante()%></td>
+                            <td class="fw-bold" id="numMes"><%= pre.getId()%></td>
+                            <td><%= pre.getNombre()%></td>
+                            <td><%= pre.getValorPrestamo()%></td>
+                            <td><%= pre.getMesesPrestamo()%></td>
+                            <td>
+                                <a href="Controlador?accion=visualizar&id=<%= pre.getId()%>">Ver prestamo</a>
+                                <a href="Controlador?accion=edit&id=<%= pre.getId()%>">Editar</a>
+                                <a href="Controlador?accion=eliminar&id=<%= pre.getId()%>">Eliminar</a>
+                            </td>
                         </tr>
                         <%}%>
                     </tbody>

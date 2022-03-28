@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Modelo.Prestamo;
+import Modelo.Persona;
 import ModeloDAO.PrestamoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,8 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 //Controlador que sirve para manejar las solicitudes hechas desde el jsp y se encarga de la logica del codigo
 public class Controlador extends HttpServlet {
     String indice="index.jsp";
-   
-    Prestamo p = new Prestamo();
+    String add="Vistas/add.jsp";
+    String edit="Vistas/edit.jsp";
+    String visualizar="Vistas/visualizar.jsp";
+    
+    Persona p = new Persona();
     PrestamoDAO dao = new PrestamoDAO();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,70 +69,55 @@ public class Controlador extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String acceso="";
+        int id;
         String action=request.getParameter("accion");
        
         // Si es eliminar la tabla llama al DAO para que elimine toda la tabla de la base de datos y recarga la pagina
-        if (action.equalsIgnoreCase("Eliminar tabla")){
-            dao.eliminar();
-            acceso=indice;
-        // Si es generar el prestamo entonces lee los parametros del frontend y los manda a este controlador
-        // De aqui se hace elimina la anterior tabla y se genera al plan de pago de cada mes que se envia al DAO para que lo
-        // inserte uno a uno como fila en la tabla mediante un for loop
-        }else if (action.equalsIgnoreCase("Generar prestamo")){
-            String mesesStr = request.getParameter("txtMeses");
+        if(action.equalsIgnoreCase("add")){
+            acceso=add;
+            
+        }else if (action.equalsIgnoreCase("Agregar")){
+            String nombre = request.getParameter("txtNombre");
             String valorPrestamoStr = request.getParameter("txtValorPrestamo");
-            
-            dao.eliminar();
-            
-            int meses = Integer.parseInt(mesesStr);
-            double valorPrestamo = Double.parseDouble(valorPrestamoStr);
-            double interesMeses = Math.pow((1+0.011), meses);
-            
-            //En caso de que los meses ingresados pasen de 18 se limitan con este if
-            //En caso de excepcion ya que el javascript limita desde el frontend
-            if (meses>18){
-                meses = 18;
-            }
-            
-            double cuotaMensual = (valorPrestamo*(0.011*(interesMeses))) / (interesMeses-1);
-            cuotaMensual = cuotaMensual*100;
-            cuotaMensual = round(cuotaMensual);
-            cuotaMensual = cuotaMensual/100;
-            
-            p.setValorCuota(cuotaMensual);
-            
-            double creditoRestante = valorPrestamo;
-            double abonoMes;
-            double interesMes;
-            
-            // Por cada mes se crea un objeto Prestamo y se calcula el credito restante y el interes de ese mes
-            // Cada objeto creado se envia al DAO que se encarga de añadirlo a la base de datos
-            for (int i = 1; i <= meses; i++){
-                interesMes = creditoRestante*0.011;
-                interesMes = interesMes*100;
-                interesMes = round(interesMes);
-                interesMes = interesMes/100;
-                
-                p.setNumMes(i);
-                p.setValorInteres(interesMes);
-                abonoMes = cuotaMensual - interesMes;
-                
-                creditoRestante = creditoRestante - abonoMes;
-                creditoRestante = creditoRestante*100;
-                creditoRestante = round(creditoRestante);
-                creditoRestante = creditoRestante/100;
-                
-                p.setSaldoRestante(creditoRestante);
-                
-                if (i == meses){
-                    p.setSaldoRestante(0);
-                }
-                
-                dao.add(p);
-            }
+            String mesesStr = request.getParameter("txtMesesPrestamo");
+                    
+            int valorPrestamo = Integer.parseInt(valorPrestamoStr);
+            int mesesPrestamo = Integer.parseInt(mesesStr);
+            p.setNombre(nombre);
+            p.setValorPrestamo(valorPrestamo);
+            p.setMesesPrestamo(mesesPrestamo);
+            dao.add(p);
             acceso = indice;
+            
+        }else if (action.equalsIgnoreCase("edit")){
+            request.setAttribute("idper", request.getParameter("id"));
+            acceso=edit;
+            
+        } else if (action.equalsIgnoreCase("Actualizar")){
+            id = Integer.parseInt(request.getParameter("txtId"));
+            String nombre = request.getParameter("txtNombre");
+            String valorPrestamoStr = request.getParameter("txtValorPrestamo");
+            String mesesStr = request.getParameter("txtMesesPrestamo");
+                    
+            int valorPrestamo = Integer.parseInt(valorPrestamoStr);
+            int mesesPrestamo = Integer.parseInt(mesesStr);
+            
+            p.setId(id);
+            p.setNombre(nombre);
+            p.setValorPrestamo(valorPrestamo);
+            p.setMesesPrestamo(mesesPrestamo);
+            dao.edit(p);
+            acceso=indice;
+            
+        } else if(action.equalsIgnoreCase("eliminar")){
+            id = Integer.parseInt(request.getParameter("id"));
+            p.setId(id);
+            dao.eliminar(id);
+            acceso=indice;
+        } else if (action.equalsIgnoreCase("visualizar")){
+            acceso=visualizar;
         }
-        
+          
         //Al final solo solicita la vista del archivo que se pasa mediante "acceso", en este caso seria el index.jsp
         RequestDispatcher vista = request.getRequestDispatcher(acceso);
         vista.forward(request, response);

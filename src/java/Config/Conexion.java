@@ -13,7 +13,7 @@ public class Conexion {
     public Conexion(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/prestamobancodb?useSSL=false","root","1234");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/personasbancodb?useSSL=false","root","1234");
         } catch (Exception e) {
             System.err.println("Error"+e);
         }

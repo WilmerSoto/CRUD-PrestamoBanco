@@ -7,7 +7,7 @@ package ModeloDAO;
 
 import Config.Conexion;
 import Interfaces.CRUD;
-import Modelo.Prestamo;
+import Modelo.Persona;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,24 +22,24 @@ public class PrestamoDAO implements CRUD{
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    Prestamo p = new Prestamo();
+    Persona p = new Persona();
     
     // Este metodo envia como solicitud sql la String llamada sql que selecciona todos los datos de la base de datos
     // y los guarda uno a uno en un objeto Prestamo que se añaden a una lista. En el index.jsp se itera sobre esta lista.
     @Override
     public List listar() {
-        ArrayList<Prestamo>list = new ArrayList<>();
-        String sql = "select * from prestamobanco";
+        ArrayList<Persona>list = new ArrayList<>();
+        String sql = "select * from personasbanco";
         try {
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
             rs=ps.executeQuery();
             while(rs.next()){
-                Prestamo pre = new Prestamo();
-                pre.setNumMes(rs.getInt("numMes"));
-                pre.setValorCuota(rs.getDouble("valorCuota"));
-                pre.setValorInteres(rs.getDouble("valorInteres"));
-                pre.setSaldoRestante(rs.getDouble("saldoRestante"));
+                Persona pre = new Persona();
+                pre.setId(rs.getInt("Id"));
+                pre.setNombre(rs.getString("nombre"));
+                pre.setValorPrestamo(rs.getInt("valorPrestamo"));
+                pre.setMesesPrestamo(rs.getInt("mesesPrestamo"));
                 list.add(pre);
             }
         } catch (Exception e) {
@@ -49,8 +49,8 @@ public class PrestamoDAO implements CRUD{
 
     // Metodo que recibe el objeto a insertar en la tabla de la base de datos
     @Override
-    public boolean add(Prestamo prestamo) {
-        String sql = "insert into prestamobanco(numMes, valorCuota, valorInteres, saldoRestante)values('"+prestamo.getNumMes()+"','"+prestamo.getValorCuota()+"','"+prestamo.getValorInteres()+"','"+prestamo.getSaldoRestante()+"')";
+    public boolean add(Persona per) {
+        String sql = "insert into personasbanco(nombre, valorPrestamo, mesesPrestamo)values('"+per.getNombre()+"','"+per.getValorPrestamo()+"','"+per.getMesesPrestamo()+"')";
         try {
             con = cn.getConnection();
             ps=con.prepareStatement(sql);
@@ -61,11 +61,42 @@ public class PrestamoDAO implements CRUD{
         }
         
     // Metodo que envia una solicitud sql de borrar todos los datos de la base de datos
+
     @Override
-    public boolean eliminar() {
-        String sql = "delete from prestamobanco";
+    public Persona list(int id) {
+        String sql = "select * from personasbanco where Id="+id;
         try {
-            con = cn.getConnection();
+            con=cn.getConnection();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                p.setId(rs.getInt("Id"));
+                p.setNombre(rs.getString("nombre"));
+                p.setValorPrestamo(rs.getInt("valorPrestamo"));
+                p.setMesesPrestamo(rs.getInt("mesesPrestamo"));
+            }
+        } catch (Exception e) {
+        }
+        return p;
+    }
+
+    @Override
+    public boolean edit(Persona per) {
+        String sql="update personasbanco set nombre='"+per.getNombre()+"',valorPrestamo='"+per.getValorPrestamo()+"',mesesPrestamo='"+per.getMesesPrestamo()+"'where Id="+per.getId();
+        try {
+            con=cn.getConnection();
+            ps=con.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    @Override
+    public boolean eliminar(int id) {
+        String sql="delete from personasbanco where Id="+id;
+        try {
+            con=cn.getConnection();
             ps=con.prepareStatement(sql);
             ps.executeUpdate();
         } catch (Exception e) {

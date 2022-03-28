@@ -5,7 +5,7 @@
  */
 package Interfaces;
 
-import Modelo.Prestamo;
+import Modelo.Persona;
 import java.util.List;
 
 /**
@@ -15,7 +15,8 @@ import java.util.List;
 //Interface que se conecta al ModeloDAO
 public interface CRUD {
     public List listar();
-    public boolean add(Prestamo prestamo);
-    public boolean eliminar();
-    
+    public Persona list(int id);
+    public boolean add(Persona prestamo);
+    public boolean edit(Persona prestamo);
+    public boolean eliminar(int id);
 }
