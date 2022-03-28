@@ -32,22 +32,17 @@
         <a href="Controlador?accion=add">Agregar persona</a>
         <div class="container card mt-3 p-4">
             <div class="card-header text-center bg-primary text-white">
-                <h1 class="fw-bold">Plan de pagos del prestamo</h1>
+                <h1 class="fw-bold">Lista de personas con prestamos</h1>
             </div>
             <div class="card-body">
                 <table class="table table-bordered border-dark">
-                    <div>
-                        <nav class="navbar navbar-light bg-light px-4 text-center mx-5">
-                            <p class="col-sm" id="prestamoHTML"></p>
-                            <p class="col-sm" id="mesesHTML"></p>
-                        </nav>
-                    </div>
                     <thead class="table-dark">
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
                             <th>Valor prestamo</th>
                             <th>Meses del prestamo</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <%

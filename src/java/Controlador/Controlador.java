@@ -115,6 +115,7 @@ public class Controlador extends HttpServlet {
             dao.eliminar(id);
             acceso=indice;
         } else if (action.equalsIgnoreCase("visualizar")){
+            request.setAttribute("idper", request.getParameter("id"));
             acceso=visualizar;
         }
           
