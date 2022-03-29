@@ -9,10 +9,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <%  //Se usa un objeto DAO para listar la persona especifica con el id enviado desde index.jsp
+                //Los datos de la persona los rellena en los input.
+                
+                PersonaDAO dao = new PersonaDAO();
+                int id = Integer.parseInt((String) request.getAttribute("idper"));
+                Persona p = (Persona) dao.list(id);
+            %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <title>JSP Page</title>
+        <title>Editar usuario - <%=p.getNombre()%></title>
         <style>
             input::-webkit-outer-spin-button,
             input::-webkit-inner-spin-button {
@@ -27,13 +34,6 @@
     <body>
         <script src="./js/script.js" type="text/javascript"></script>
         <div class="container card">
-            <%  //Se usa un objeto DAO para listar la persona especifica con el id enviado desde index.jsp
-                //Los datos de la persona los rellena en los input.
-                
-                PersonaDAO dao = new PersonaDAO();
-                int id = Integer.parseInt((String) request.getAttribute("idper"));
-                Persona p = (Persona) dao.list(id);
-            %>
             <div class="card-header text-center bg-primary text-white mb-3">
                 <h1 class="fw-bold">Modificar persona</h1>
             </div>

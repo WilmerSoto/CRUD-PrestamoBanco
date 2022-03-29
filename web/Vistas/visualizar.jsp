@@ -9,23 +9,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <%  //Se usa un DAO para listar la persona con la id enviada anteriormente
+        //Se usa para la logica del plan de pagos y para mostrar los datos de la persona en el HTML
+
+        PersonaDAO dao = new PersonaDAO();
+        int id = Integer.parseInt((String) request.getAttribute("idper"));
+        Persona per = (Persona) dao.list(id);
+    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Plan de pagos - <%=per.getNombre()%></title>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="container card">
             <div class="card-header text-center bg-primary text-white mx-3"> 
                 <h1 class="fw-bold">Plan de pagos del prestamo</h1>
-            </div>
-            <%  //Se usa un DAO para listar la persona con la id enviada anteriormente
-                //Se usa para la logica del plan de pagos y para mostrar los datos de la persona en el HTML
-                
-                PersonaDAO dao = new PersonaDAO();
-                int id = Integer.parseInt((String) request.getAttribute("idper"));
-                Persona per = (Persona) dao.list(id);
-            %>
+            </div> 
             <div>
                 <nav class="navbar navbar-ligh bg-light px-4 text-center mx-3">
                     <p><strong>NOMBRE:</strong> <%=per.getNombre()%></p>
@@ -46,7 +46,7 @@
                     </thead>
                     <%  //Logica encargada de calcular la cuota mensual, el valor de interes del mes y el saldo restante para ese mes
                         //Crea una fila en la tabla por cada mes.
-                        
+
                         double interesMeses = Math.pow((1 + 0.011), per.getMesesPrestamo());
                         double cuotaMensual = (per.getValorPrestamo() * (0.011 * (interesMeses))) / (interesMeses - 1);
                         cuotaMensual = cuotaMensual * 100;
