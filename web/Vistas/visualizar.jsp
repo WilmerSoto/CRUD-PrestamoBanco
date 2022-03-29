@@ -12,12 +12,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="container card">
             <div class="card-header text-ceter bg-primary text-white"> 
                 <h1 class="fw-bold">Plan de pagos del prestamo</h1>
+            </div>
+            <%PersonaDAO dao = new PersonaDAO();
+                int id = Integer.parseInt((String) request.getAttribute("idper"));
+                Persona per = (Persona) dao.list(id);
+            %>
+            <div>
+                <p>Nombre: <%=per.getNombre()%></p>
+                <p>Cedula: <%=per.getCedula()%></p>
+                <p>Valor prestamo: <%=per.getValorPrestamo()%></p>
+                <p>Meses del prestamo: <%=per.getMesesPrestamo()%></p>          
             </div>
             <div class="card-body">
                 <table class="table table-bordered border-dark">
@@ -35,11 +45,7 @@
                             <th>Saldo restante</th>
                         </tr>
                     </thead>
-                    <% PersonaDAO dao = new PersonaDAO();
-                        int id = Integer.parseInt((String) request.getAttribute("idper"));
-                        Persona per = (Persona) dao.list(id);
-
-                        double interesMeses = Math.pow((1 + 0.011), per.getMesesPrestamo());
+                    <%  double interesMeses = Math.pow((1 + 0.011), per.getMesesPrestamo());
                         double cuotaMensual = (per.getValorPrestamo() * (0.011 * (interesMeses))) / (interesMeses - 1);
                         cuotaMensual = cuotaMensual * 100;
                         cuotaMensual = Math.round(cuotaMensual);

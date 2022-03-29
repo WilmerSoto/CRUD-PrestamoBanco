@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
     <body>
@@ -17,6 +18,8 @@
             <form action="Controlador"> 
                 Nombre:<br>
                 <input type="text" name="txtNombre"><br>
+                Cedula:<br>
+                <input type="text" name="txtCedula"><br>
                 Valor prestamo: <br>
                 <input type="text" name="txtValorPrestamo"><br>
                 Meses del prestamo: <br>

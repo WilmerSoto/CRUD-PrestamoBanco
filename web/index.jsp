@@ -7,7 +7,7 @@
 <%@page import="Modelo.Persona"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
-<%@page import="ModeloDAO.PrestamoDAO"%>
+<%@page import="ModeloDAO.PersonaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,13 +40,14 @@
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
+                            <th>Cedula</th>
                             <th>Valor prestamo</th>
                             <th>Meses del prestamo</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <%
-                        PrestamoDAO dao = new PrestamoDAO();
+                        PersonaDAO dao = new PersonaDAO();
                         List<Persona> list = dao.listar();
                         Iterator<Persona> iter = list.iterator();
                         Persona pre = null;
@@ -57,6 +58,7 @@
                         <tr>
                             <td class="fw-bold" id="numMes"><%= pre.getId()%></td>
                             <td><%= pre.getNombre()%></td>
+                            <td><%= pre.getCedula()%></td>
                             <td><%= pre.getValorPrestamo()%></td>
                             <td><%= pre.getMesesPrestamo()%></td>
                             <td>

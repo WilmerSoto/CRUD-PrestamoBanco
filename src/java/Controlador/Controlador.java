@@ -78,12 +78,14 @@ public class Controlador extends HttpServlet {
             
         }else if (action.equalsIgnoreCase("Agregar")){
             String nombre = request.getParameter("txtNombre");
+            String cedula = request.getParameter("txtCedula");
             String valorPrestamoStr = request.getParameter("txtValorPrestamo");
             String mesesStr = request.getParameter("txtMesesPrestamo");
                     
             int valorPrestamo = Integer.parseInt(valorPrestamoStr);
             int mesesPrestamo = Integer.parseInt(mesesStr);
             p.setNombre(nombre);
+            p.setCedula(cedula);
             p.setValorPrestamo(valorPrestamo);
             p.setMesesPrestamo(mesesPrestamo);
             dao.add(p);
@@ -96,6 +98,7 @@ public class Controlador extends HttpServlet {
         } else if (action.equalsIgnoreCase("Actualizar")){
             id = Integer.parseInt(request.getParameter("txtId"));
             String nombre = request.getParameter("txtNombre");
+            String cedula = request.getParameter("txtCedula");
             String valorPrestamoStr = request.getParameter("txtValorPrestamo");
             String mesesStr = request.getParameter("txtMesesPrestamo");
                     
@@ -104,6 +107,7 @@ public class Controlador extends HttpServlet {
             
             p.setId(id);
             p.setNombre(nombre);
+            p.setCedula(cedula);
             p.setValorPrestamo(valorPrestamo);
             p.setMesesPrestamo(mesesPrestamo);
             dao.edit(p);

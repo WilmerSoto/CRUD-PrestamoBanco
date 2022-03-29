@@ -15,14 +15,15 @@ package Modelo;
 public class Persona {
     int id;
     String nombre;
+    String cedula;
     int valorPrestamo;
     int mesesPrestamo;
     
-    
-    public Persona(String nombre, int valorPrestamo, int mesesPrestamo) {
+    public Persona(String nombre, String cedula, int valorPrestamo, int mesesPrestamo) {
         this.nombre = nombre;
         this.valorPrestamo = valorPrestamo;
         this.mesesPrestamo = mesesPrestamo;
+        this.cedula = cedula;
     }
 
     public int getId() {
@@ -39,6 +40,14 @@ public class Persona {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+     public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
 
     public int getValorPrestamo() {

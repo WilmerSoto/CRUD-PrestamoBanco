@@ -38,6 +38,7 @@ public class PersonaDAO implements CRUD{
                 Persona pre = new Persona();
                 pre.setId(rs.getInt("Id"));
                 pre.setNombre(rs.getString("nombre"));
+                pre.setCedula(rs.getString("cedula"));
                 pre.setValorPrestamo(rs.getInt("valorPrestamo"));
                 pre.setMesesPrestamo(rs.getInt("mesesPrestamo"));
                 list.add(pre);
@@ -50,7 +51,7 @@ public class PersonaDAO implements CRUD{
     // Metodo que recibe el objeto a insertar en la tabla de la base de datos
     @Override
     public boolean add(Persona per) {
-        String sql = "insert into personasbanco(nombre, valorPrestamo, mesesPrestamo)values('"+per.getNombre()+"','"+per.getValorPrestamo()+"','"+per.getMesesPrestamo()+"')";
+        String sql = "insert into personasbanco(nombre, valorPrestamo, mesesPrestamo, cedula)values('"+per.getNombre()+"','"+per.getValorPrestamo()+"','"+per.getMesesPrestamo()+"','"+per.getCedula()+"')";
         try {
             con = cn.getConnection();
             ps=con.prepareStatement(sql);
@@ -72,6 +73,7 @@ public class PersonaDAO implements CRUD{
             while(rs.next()){
                 p.setId(rs.getInt("Id"));
                 p.setNombre(rs.getString("nombre"));
+                p.setCedula(rs.getString("cedula"));
                 p.setValorPrestamo(rs.getInt("valorPrestamo"));
                 p.setMesesPrestamo(rs.getInt("mesesPrestamo"));
             }
@@ -82,7 +84,7 @@ public class PersonaDAO implements CRUD{
 
     @Override
     public boolean edit(Persona per) {
-        String sql="update personasbanco set nombre='"+per.getNombre()+"',valorPrestamo='"+per.getValorPrestamo()+"',mesesPrestamo='"+per.getMesesPrestamo()+"'where Id="+per.getId();
+        String sql="update personasbanco set nombre='"+per.getNombre()+"',valorPrestamo='"+per.getValorPrestamo()+"',mesesPrestamo='"+per.getMesesPrestamo()+"',cedula='"+per.getCedula()+"'where Id="+per.getId();
         try {
             con=cn.getConnection();
             ps=con.prepareStatement(sql);
