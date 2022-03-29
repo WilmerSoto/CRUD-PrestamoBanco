@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 
 // DAO que guarda todos los metodos que se ejecutan en el servidor
-public class PrestamoDAO implements CRUD{
+public class PersonaDAO implements CRUD{
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;

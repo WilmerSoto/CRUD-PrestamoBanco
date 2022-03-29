@@ -4,8 +4,8 @@
     Author     : Wilmer Soto
 --%>
 
+<%@page import="ModeloDAO.PersonaDAO"%>
 <%@page import="Modelo.Persona"%>
-<%@page import="ModeloDAO.PrestamoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,7 +35,7 @@
                             <th>Saldo restante</th>
                         </tr>
                     </thead>
-                    <% PrestamoDAO dao = new PrestamoDAO();
+                    <% PersonaDAO dao = new PersonaDAO();
                         int id = Integer.parseInt((String) request.getAttribute("idper"));
                         Persona per = (Persona) dao.list(id);
 

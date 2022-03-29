@@ -6,7 +6,7 @@
 package Controlador;
 
 import Modelo.Persona;
-import ModeloDAO.PrestamoDAO;
+import ModeloDAO.PersonaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Math.round;
@@ -28,7 +28,7 @@ public class Controlador extends HttpServlet {
     String visualizar="Vistas/visualizar.jsp";
     
     Persona p = new Persona();
-    PrestamoDAO dao = new PrestamoDAO();
+    PersonaDAO dao = new PersonaDAO();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
