@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="container card">
-            <div class="card-header text-ceter bg-primary text-white"> 
+            <div class="card-header text-center bg-primary text-white mx-3"> 
                 <h1 class="fw-bold">Plan de pagos del prestamo</h1>
             </div>
             <%PersonaDAO dao = new PersonaDAO();
@@ -24,19 +24,15 @@
                 Persona per = (Persona) dao.list(id);
             %>
             <div>
-                <p>Nombre: <%=per.getNombre()%></p>
-                <p>Cedula: <%=per.getCedula()%></p>
-                <p>Valor prestamo: <%=per.getValorPrestamo()%></p>
-                <p>Meses del prestamo: <%=per.getMesesPrestamo()%></p>          
+                <nav class="navbar navbar-ligh bg-light px-4 text-center mx-3">
+                    <p><strong>NOMBRE:</strong> <%=per.getNombre()%></p>
+                    <p><strong>CEDULA:</strong> <%=per.getCedula()%></p>
+                    <p><strong>VALOR PRESTAMO:</strong> <%=per.getValorPrestamo()%></p>
+                    <p><strong>MESES DEL PRESTAMO:</strong> <%=per.getMesesPrestamo()%></p>         
+                </nav>
             </div>
             <div class="card-body">
                 <table class="table table-bordered border-dark">
-                    <div>
-                        <nav class="navbar navbar-ligh bg-light px-4 text-center mx-5">
-                            <p class="col-sm" id="prestamoHTML"></p>
-                            <p class="col-sm" id="mesesHTML"></p>
-                        </nav>
-                    </div>
                     <thead class="table-dark">
                         <tr>
                             <th>Numero mes</th>
@@ -85,5 +81,6 @@
                 </table>
             </div>
         </div>
+        <a href="index.jsp" class="btn btn-secondary ms-1">Regresar</a>
     </body>
 </html>
