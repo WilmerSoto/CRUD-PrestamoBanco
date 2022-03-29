@@ -10,8 +10,8 @@ package Modelo;
  * @author Wilmer Soto
  */
 
-// Clase prestamo que recibe los datos del mes del prestamo que se va a hacer, 
-// en la logica se crea un objeto por cada mes y se manda al DAO
+// Clase persona que construye los datos de una persona de la base de datos
+// En la logica se busca la persona por la id autoasignada en la base de datos y se crea mediante los setters
 public class Persona {
     int id;
     String nombre;

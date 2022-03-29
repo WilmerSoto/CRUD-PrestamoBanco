@@ -34,7 +34,9 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <%
+                    <%  //Se crean los objetos DAO y persona. El DAO sirve para listar toda la base de datos
+                        //Los datos se guardan en una lista y mediante un iterator se itera sobre cada uno
+                        //Cada persona crea una fila nueva dentro de la tabla HTML
                         PersonaDAO dao = new PersonaDAO();
                         List<Persona> list = dao.listar();
                         Iterator<Persona> iter = list.iterator();

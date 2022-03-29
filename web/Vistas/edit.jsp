@@ -27,7 +27,9 @@
     <body>
         <script src="./js/script.js" type="text/javascript"></script>
         <div class="container card">
-            <%
+            <%  //Se usa un objeto DAO para listar la persona especifica con el id enviado desde index.jsp
+                //Los datos de la persona los rellena en los input.
+                
                 PersonaDAO dao = new PersonaDAO();
                 int id = Integer.parseInt((String) request.getAttribute("idper"));
                 Persona p = (Persona) dao.list(id);
@@ -35,6 +37,7 @@
             <div class="card-header text-center bg-primary text-white mb-3">
                 <h1 class="fw-bold">Modificar persona</h1>
             </div>
+            <!-- El action Controlador es el encargado de enviar la solicitud al Controlador.java que recibe los datos de los input -->
             <form action="Controlador" class="mb-3">
                 <div class="mb-3">
                     <label class="form-label">Nombre: </label>

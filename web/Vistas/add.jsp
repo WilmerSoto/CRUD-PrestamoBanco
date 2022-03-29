@@ -28,7 +28,8 @@
             <div class="card-header text-center bg-primary text-white mb-3">
                 <h1 class="fw-bold">Agregar persona</h1>
             </div>
-
+            <!-- El action controlador envia la solicitud al controlador.java y de ahi se sacan los valores
+                 que estan dentro del name de cada input  --->
             <form action="Controlador" class="mb-3">
                 <div class="mb-3">
                     <label class="form-label">Nombre: </label>

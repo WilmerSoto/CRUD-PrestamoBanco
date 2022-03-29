@@ -72,10 +72,12 @@ public class Controlador extends HttpServlet {
         int id;
         String action=request.getParameter("accion");
        
-        // Si es eliminar la tabla llama al DAO para que elimine toda la tabla de la base de datos y recarga la pagina
+        // Si es añadir entonces pasa la vista al add.jsp
         if(action.equalsIgnoreCase("add")){
             acceso=add;
-            
+        
+        // Si la accion es agregar entonces obtiene los parametros desde el HTML y los mete en un objeto p tipo persona
+        // Luego eso se envia al DAO que se encarga de insertarlo en la base de datos
         }else if (action.equalsIgnoreCase("Agregar")){
             String nombre = request.getParameter("txtNombre");
             String cedula = request.getParameter("txtCedula");
@@ -91,10 +93,13 @@ public class Controlador extends HttpServlet {
             dao.add(p);
             acceso = indice;
             
+            //Si es editar se obtiene el atributo id del HTML para listar la persona a editar
         }else if (action.equalsIgnoreCase("edit")){
             request.setAttribute("idper", request.getParameter("id"));
             acceso=edit;
             
+            //Para actualizar obtiene todos los datos ingresados y los mete al objeto p tipo persona
+            //Luego los envia al DAO que se encarga de actualizar ese dato
         } else if (action.equalsIgnoreCase("Actualizar")){
             id = Integer.parseInt(request.getParameter("txtId"));
             String nombre = request.getParameter("txtNombre");
@@ -113,11 +118,16 @@ public class Controlador extends HttpServlet {
             dao.edit(p);
             acceso=indice;
             
+            //Eliminar obtiene la id enviada desde el HTML y lo pasa aun objeto p
+            //Luego se envia al DAO que elimina ese dato especifico
         } else if(action.equalsIgnoreCase("eliminar")){
             id = Integer.parseInt(request.getParameter("id"));
             p.setId(id);
             dao.eliminar(id);
             acceso=indice;
+            
+            //Visualizar coge el id enviado y lo guarda para cargar los datos
+            //Luego abre la vista de visualizar el prestamo
         } else if (action.equalsIgnoreCase("visualizar")){
             request.setAttribute("idper", request.getParameter("id"));
             acceso=visualizar;

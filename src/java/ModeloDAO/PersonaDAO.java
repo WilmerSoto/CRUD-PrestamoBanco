@@ -25,7 +25,7 @@ public class PersonaDAO implements CRUD{
     Persona p = new Persona();
     
     // Este metodo envia como solicitud sql la String llamada sql que selecciona todos los datos de la base de datos
-    // y los guarda uno a uno en un objeto Prestamo que se añaden a una lista. En el index.jsp se itera sobre esta lista.
+    // y los guarda uno a uno en un objeto Persona que se añaden a una lista. En el visualizar.jsp se itera sobre esta lista.
     @Override
     public List listar() {
         ArrayList<Persona>list = new ArrayList<>();
@@ -48,7 +48,7 @@ public class PersonaDAO implements CRUD{
         return list;
     }
 
-    // Metodo que recibe el objeto a insertar en la tabla de la base de datos
+    // Metodo que recibe un objeto para insertar en la tabla de la base de datos
     @Override
     public boolean add(Persona per) {
         String sql = "insert into personasbanco(nombre, valorPrestamo, mesesPrestamo, cedula)values('"+per.getNombre()+"','"+per.getValorPrestamo()+"','"+per.getMesesPrestamo()+"','"+per.getCedula()+"')";
@@ -61,8 +61,7 @@ public class PersonaDAO implements CRUD{
         return false;
         }
         
-    // Metodo que envia una solicitud sql de borrar todos los datos de la base de datos
-
+    // Metodo que envia una solicitud sql de borrar un dato especifico en la base de datos
     @Override
     public Persona list(int id) {
         String sql = "select * from personasbanco where Id="+id;
@@ -81,7 +80,8 @@ public class PersonaDAO implements CRUD{
         }
         return p;
     }
-
+    
+    //Metodo que recibe un objeto persona y manda una solicitud sql para actualizar los datos correspondientes
     @Override
     public boolean edit(Persona per) {
         String sql="update personasbanco set nombre='"+per.getNombre()+"',valorPrestamo='"+per.getValorPrestamo()+"',mesesPrestamo='"+per.getMesesPrestamo()+"',cedula='"+per.getCedula()+"'where Id="+per.getId();
@@ -94,6 +94,7 @@ public class PersonaDAO implements CRUD{
         return false;
     }
 
+    //Metodo eliminar que recibe la id unica de la persona y envia una solicitud sql para que se borre la persona
     @Override
     public boolean eliminar(int id) {
         String sql="delete from personasbanco where Id="+id;
